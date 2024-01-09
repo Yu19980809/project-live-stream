@@ -44,7 +44,7 @@ export const UserAvatar = ({
   return (
     <div className="relative">
       <Avatar className={cn(
-        'isLive' && 'border border-background ring-2 ring-rose-500',
+        isLive && 'border border-background ring-2 ring-rose-500',
         avatarSizes({ size })
       )}>
         <AvatarImage src={imageUrl} className="object-cover" />
