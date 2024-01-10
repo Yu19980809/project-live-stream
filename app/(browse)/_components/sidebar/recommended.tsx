@@ -1,15 +1,19 @@
 'use client'
 
-import { User } from '@prisma/client'
+import { Stream, User } from '@prisma/client'
 
 import { useSidebar } from '@/store/use-sidebar'
 import { UserItem, UserItemSkeleton } from './user-item'
 
+interface RecommendedProps {
+  data: (User & {
+    stream: { isLive: boolean } | null
+  })[]
+}
+
 export const Recommended = ({
   data
-}: {
-  data: User[]
-}) => {
+}: RecommendedProps) => {
   const {collapsed} = useSidebar()
 
   const showLabel = !collapsed && data.length > 0
@@ -30,7 +34,7 @@ export const Recommended = ({
             key={user.id}
             username={user.username}
             imageUrl={user.imageUrl}
-            isLive={true}
+            isLive={user.stream?.isLive}
           />
         ))}
       </ul>
