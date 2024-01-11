@@ -35,7 +35,9 @@ export const ChatList = ({
 }
 
 export const ChatListSkeleton = () => (
-  <div className="flex justify-center items-center h-full">
+  <div className="flex flex-col justify-center items-center gap-y-2 h-full">
+    <Skeleton className="w-1/2 h-6" />
+    <Skeleton className="w-1/2 h-6" />
     <Skeleton className="w-1/2 h-6" />
   </div>
 )

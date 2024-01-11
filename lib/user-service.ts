@@ -6,7 +6,12 @@ export const getUserByUsername = async (username: string) => {
       username
     },
     include: {
-      stream: true
+      stream: true,
+      _count: {
+        select: {
+          followedBy: true
+        }
+      }
     },
     // select: {
     //   id: true,
@@ -15,11 +20,6 @@ export const getUserByUsername = async (username: string) => {
     //   bio: true,
     //   imageUrl: true
     // },
-    // _count: {
-    //   select: {
-    //     followedBy: true
-    //   }
-    // }
   })
 
   return user

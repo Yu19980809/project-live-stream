@@ -10,9 +10,9 @@ import {
 } from '@livekit/components-react'
 
 import { ChatVariant, useChatSidebar } from '@/store/use-chat-sidebar'
-import { ChatHeader } from '@/components/stream-player/chat-header'
-import { ChatForm } from '@/components/stream-player/chat-form'
-import { ChatList } from '@/components/stream-player/chat-list'
+import { ChatHeader, ChatHeaderSkeleton } from '@/components/stream-player/chat-header'
+import { ChatForm, ChatFormSkeleton } from '@/components/stream-player/chat-form'
+import { ChatList, ChatListSkeleton } from '@/components/stream-player/chat-list'
 import { ChatCommunity } from '@/components/stream-player/chat-community'
 
 interface ChatProps {
@@ -55,6 +55,7 @@ export const Chat = ({
   const reversedMessages = useMemo(() => {
     return messages.sort((a, b) => b.timestamp - a.timestamp)
   }, [messages])
+
 
   const onSubmit = () => {
     if (!send) return
@@ -102,3 +103,11 @@ export const Chat = ({
     </div>
   )
 }
+
+export const ChatSkeleton = () => (
+  <div className="flex flex-col h-[calc(100vh-80px)] pt-0 border-l border-b border-2">
+    <ChatHeaderSkeleton />
+    <ChatListSkeleton />
+    <ChatFormSkeleton />
+  </div>
+)

@@ -1,8 +1,9 @@
 'use client'
 
-import { useState } from 'react'
-import { useParticipants } from '@livekit/components-react'
+import { useState, useMemo } from 'react'
 import { useDebounce } from 'usehooks-ts'
+import { useParticipants } from '@livekit/components-react'
+import { LocalParticipant, RemoteParticipant } from 'livekit-client'
 
 import { Input } from '@/components/ui/input'
 import { ScrollArea } from '@/components/ui/scroll-area'
@@ -22,6 +23,26 @@ export const ChatCommunity = ({
   const [value, setValue] = useState('')
   const debouncedValue = useDebounce<string>(value, 500)
   const participants = useParticipants()
+
+  const filteredParticipants = useMemo(() => {
+    const deduped = participants.reduce((acc, participant) => {
+      const hostAsViewer = `host-${participant.identity}`
+
+      if (!acc.some(item => item.identity === hostAsViewer)) {
+        acc.push(participant)
+      }
+
+      return acc
+    }, [] as (RemoteParticipant | LocalParticipant)[])
+
+    const filteredResult = deduped.filter(participant => {
+      return participant.name?.toLowerCase().includes(
+        debouncedValue.toLowerCase()
+      )
+    })
+
+    return filteredResult
+  }, [participants, debouncedValue])
 
   const onChange = (newValue: string) => {
     setValue(newValue)
@@ -50,7 +71,7 @@ export const ChatCommunity = ({
           No results
         </p>
 
-        {participants.map(participant => (
+        {filteredParticipants.map(participant => (
           <CommunityItem
             key={participant.identity}
             hostName={hostName}
