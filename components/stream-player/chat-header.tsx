@@ -2,6 +2,7 @@
 
 import { Skeleton } from '@/components/ui/skeleton'
 import { ChatToggle } from './chat-toggle'
+import { VariantToggle } from './variant-toggle'
 
 export const ChatHeader = () => {
   return (
@@ -14,7 +15,9 @@ export const ChatHeader = () => {
         Stream Chat
       </p>
 
-      {/* TODO: tToggle chat community */}
+      <div className="absolute top-2 right-2">
+        <VariantToggle />
+      </div>
     </div>
   )
 }

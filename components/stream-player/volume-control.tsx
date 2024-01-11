@@ -17,7 +17,6 @@ export const VolumeControl = ({
   onChange
 }: VolumeControlProps) => {
   const isMuted = value === 0
-  console.log('isMuted', isMuted)
   const isAboveHalf = value > 50
 
   let Icon = Volume1

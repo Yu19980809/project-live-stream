@@ -9,8 +9,11 @@ import {
   useRemoteParticipant
 } from '@livekit/components-react'
 
-import { useChatSidebar } from '@/store/use-chat-sidebar'
-import { ChatHeader } from './chat-header'
+import { ChatVariant, useChatSidebar } from '@/store/use-chat-sidebar'
+import { ChatHeader } from '@/components/stream-player/chat-header'
+import { ChatForm } from '@/components/stream-player/chat-form'
+import { ChatList } from '@/components/stream-player/chat-list'
+import { ChatCommunity } from '@/components/stream-player/chat-community'
 
 interface ChatProps {
   viewerName: string
@@ -60,9 +63,42 @@ export const Chat = ({
     setValue('')
   }
 
+  const onChange = (value: string) => {
+    setValue(value)
+  }
+
   return (
     <div className="flex flex-col h-[calc(100vh-80px)] pt-0 border-l border-b bg-background">
       <ChatHeader />
+
+      {variant === ChatVariant.CHAT && (
+        <>
+          <ChatList
+            messages={reversedMessages}
+            isHidden={isHidden}
+          />
+
+          <ChatForm
+            onSubmit={onSubmit}
+            onChange={onChange}
+            value={value}
+            isHidden={isHidden}
+            isFollowersOnly={isChatFollowersOnly}
+            isDelayed={isChatDelayed}
+            isFollowing={isFollowing}
+          />
+        </>
+      )}
+
+      {variant === ChatVariant.COMMUNITY && (
+        <>
+          <ChatCommunity
+            viewerName={viewerName}
+            hostName={hostName}
+            isHidden={isHidden}
+          />
+        </>
+      )}
     </div>
   )
 }
