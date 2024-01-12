@@ -4,7 +4,6 @@ import { LiveKitRoom } from '@livekit/components-react'
 
 import { useViewerToken } from '@/hooks/use-viewer-token'
 import { useChatSidebar } from '@/store/use-chat-sidebar'
-import { getLiveKitServerUrl } from '@/actions/stream'
 import { cn } from '@/lib/utils'
 import { Video, VideoSkeleton } from './video'
 import { Chat, ChatSkeleton } from './chat'
@@ -45,7 +44,6 @@ export const StreamPlayer = async ({
 }: StreamPlayerProps) => {
   const {token, name, identity} = useViewerToken(user.id)
   const {collapsed} = useChatSidebar()
-  const serverUrl = await getLiveKitServerUrl()
 
   if (!token || !name || !identity) {
     return (
@@ -63,7 +61,7 @@ export const StreamPlayer = async ({
 
       <LiveKitRoom
         token={token}
-        serverUrl={serverUrl}
+        serverUrl='wss://live-stream-x3m757sr.livekit.cloud'
         className={cn(
           'grid grid-cols-1 lg:gap-y-0 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-6 h-full',
           collapsed && 'lg:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-2'

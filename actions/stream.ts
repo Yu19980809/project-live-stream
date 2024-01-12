@@ -46,7 +46,3 @@ export const updateStream = async (values: Partial<Stream>) => {
     throw new Error('Internal Error')
   }
 }
-
-export const getLiveKitServerUrl = () => {
-  return process.env.NEXT_PUBIC_LIVEKIT_WS_URL
-}
