@@ -51,7 +51,7 @@ const Search = () => {
       <Button
         type="submit"
         size="sm"
-        variant="secondary"
+        variant="dime"
         className="rounded-l-none"
       >
         <SearchIcon className="w-5 h-5 text-muted-foreground" />
