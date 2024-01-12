@@ -20,7 +20,7 @@ const Container = ({
     } else {
       onExpand()
     }
-  }, [matches])
+  }, [matches, onCollapse, onExpand])
 
   return (
     <div className={cn(
